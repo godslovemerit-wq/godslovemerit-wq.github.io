@@ -83,7 +83,7 @@ function gameLoop() {
     ctx.fillRect(paddleX, canvas.height - 30, paddleW, paddleH);
     ctx.fillStyle = "#ff6464";
     ctx.beginPath();
-    ctx.arc(ball.x, bally, 10, 0, Math.PI * 2);
+    ctx.arc(ball.x, ball.y, 10, 0, Math.PI * 2);
     ctx.fill();
 
     requestAnimationFrame(gameLoop);
