@@ -30,7 +30,10 @@
     </div> 
   <h3 style="color: #64c8ff; margin-top: 30px;">Play It Here!</h3>
     <canvas id="gameCanvas" width="300" height="400" style="background:#000; border: 2px solid #64c8ff; touch-action: none;"></canvas>
-    <p id="scoreDisplay" style="font-size: 20px;">Score: 0</p>
+    <p id="scoreDisplay" style="font-size: 20px;">Score: 0</p> 
+    <h3 style="color: #ff64c8; margin-top: 30px;">Bubble Pop</h3>
+    <canvas id="bubbleCanvas" width="300" height="360" style="background:#111; border: 2px solid #ff64c8; touch-action: none; border-radius: 10px;"></canvas>
+    <p id="bubbleScoreDisplay" style="font-size: 20px;">Score: 0</p>
   <h2>About Me</h2>
     <p>I'm learning to code and build things — from mobile games to websites, all from my phone. I'm excited to keep growing my skills and sharing what I create.</p>
 
@@ -89,6 +92,114 @@ function gameLoop() {
     requestAnimationFrame(gameLoop);
 }
 
-gameLoop();
-  </script>
+gameLoop(); 
+      <script>
+const bCanvas = document.getElementById("bubbleCanvas");
+const bCtx = bCanvas.getContext("2d");
+const bubbleScoreDisplay = document.getElementById("bubbleScoreDisplay");
+
+const COLS = 6;
+const ROWS = 6;
+const CELL = bCanvas.width / COLS;
+const COLORS = ["#ff5e5e", "#5eff8f", "#5ecbff", "#ffe15e", "#c65eff", "#ff9d5e"];
+
+let bGrid = [];
+let bScore = 0;
+let currentColor = Math.floor(Math.random() * COLORS.length);
+
+function initGrid() {
+    bGrid = [];
+    for (let r = 0; r < ROWS; r++) {
+        let row = [];
+        for (let c = 0; c < COLS; c++) {
+            row.push(r < 3 ? Math.floor(Math.random() * COLORS.length) : null);
+        }
+        bGrid.push(row);
+    }
+}
+initGrid();
+
+function drawBubble(x, y, colorIndex) {
+    const radius = CELL / 2 - 3;
+    const grad = bCtx.createRadialGradient(x - radius/3, y - radius/3, radius/4, x, y, radius);
+    grad.addColorStop(0, "#ffffff");
+    grad.addColorStop(0.3, COLORS[colorIndex]);
+    grad.addColorStop(1, COLORS[colorIndex]);
+    bCtx.beginPath();
+    bCtx.arc(x, y, radius, 0, Math.PI * 2);
+    bCtx.fillStyle = grad;
+    bCtx.shadowColor = COLORS[colorIndex];
+    bCtx.shadowBlur = 15;
+    bCtx.fill();
+    bCtx.shadowBlur = 0;
+}
+
+function drawGrid() {
+    bCtx.clearRect(0, 0, bCanvas.width, bCanvas.height);
+    for (let r = 0; r < ROWS; r++) {
+        for (let c = 0; c < COLS; c++) {
+            if (bGrid[r][c] !== null) {
+                drawBubble(c * CELL + CELL / 2, r * CELL + CELL / 2, bGrid[r][c]);
+            }
+        }
+    }
+    drawBubble(bCanvas.width / 2, bCanvas.height - CELL / 2, currentColor);
+}
+
+function floodFill(r, c, colorIndex, visited) {
+    if (r < 0 || r >= ROWS || c < 0 || c >= COLS) return [];
+    if (visited[r][c]) return [];
+    if (bGrid[r][c] !== colorIndex) return [];
+    visited[r][c] = true;
+    let group = [[r, c]];
+    [[r-1,c],[r+1,c],[r,c-1],[r,c+1]].forEach(([nr, nc]) => {
+        group = group.concat(floodFill(nr, nc, colorIndex, visited));
+    });
+    return group;
+}
+
+function shootAt(x) {
+    const col = Math.min(COLS - 1, Math.max(0, Math.floor(x / CELL)));
+    let targetRow = -1;
+    for (let r = ROWS - 1; r >= 0; r--) {
+        if (bGrid[r][col] === null) { targetRow = r; break; }
+    }
+    if (targetRow === -1) return;
+
+    bGrid[targetRow][col] = currentColor;
+    const visited = Array.from({length: ROWS}, () => Array(COLS).fill(false));
+    const group = floodFill(targetRow, col, currentColor, visited);
+
+    if (group.length >= 3) {
+        group.forEach(([r, c]) => bGrid[r][c] = null);
+        bScore += group.length * 10;
+        bubbleScoreDisplay.textContent = "Score: " + bScore;
+    }
+
+    currentColor = Math.floor(Math.random() * COLORS.length);
+    drawGrid();
+
+    let filledCount = 0;
+    for (let r = 0; r < ROWS; r++) for (let c = 0; c < COLS; c++) if (bGrid[r][c] !== null) filledCount++;
+    if (filledCount >= ROWS * COLS - 2) {
+        initGrid();
+        bScore = 0;
+        bubbleScoreDisplay.textContent = "Score: 0";
+    }
+}
+
+bCanvas.addEventListener("click", function(e) {
+    const rect = bCanvas.getBoundingClientRect();
+    shootAt(e.clientX - rect.left);
+});
+bCanvas.addEventListener("touchstart", function(e) {
+    e.preventDefault();
+    const rect = bCanvas.getBoundingClientRect();
+    shootAt(e.touches[0].clientX - rect.left);
+}, { passive: false }); 
+      
+    drawGrid();
+    </script>    
 </html>
+
+
