@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Merit's Learning Plan</title>
+<style>
+    * { box-sizing: border-box; }
+    body {
+        font-family: Arial, sans-serif;
+        background: #121212;
+        color: #fff;
+        margin: 0;
+        padding: 20px 16px 60px;
+    }
+    h1 {
+        color: #64c8ff;
+        text-align: center;
+        font-size: 26px;
+        margin-bottom: 4px;
+    }
+    .subtitle {
+        text-align: center;
+        color: #aaa;
+        margin-bottom: 24px;
+        font-size: 14px;
+    }
+    .progress-wrap {
+        background: #1e1e1e;
+        border-radius: 12px;
+        padding: 14px;
+        margin-bottom: 24px;
+        border: 1px solid #333;
+    }
+    .progress-bar-bg {
+        background: #333;
+        border-radius: 20px;
+        height: 16px;
+        overflow: hidden;
+        margin-top: 8px;
+    }
+    .progress-bar-fill {
+        background: linear-gradient(90deg, #64c8ff, #ff64c8);
+        height: 100%;
+        width: 0%;
+        transition: width 0.3s;
+    }
+    .progress-text {
+        font-size: 14px;
+        color: #ddd;
+    }
+    .month-block {
+        background: #1a1a1a;
+        border-radius: 14px;
+        margin-bottom: 20px;
+        padding: 16px;
+        border-left: 4px solid #64c8ff;
+    }
+    .month-title {
+        font-size: 19px;
+        color: #ff64c8;
+        margin: 0 0 4px;
+    }
+    .month-sub {
+        color: #999;
+        font-size: 13px;
+        margin-bottom: 12px;
+    }
+    .week {
+        margin-bottom: 14px;
+    }
+    .week-title {
+        font-size: 15px;
+        color: #64c8ff;
+        margin-bottom: 6px;
+        font-weight: bold;
+    }
+    label.task {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 8px 6px;
+        border-radius: 8px;
+        margin-bottom: 4px;
+        font-size: 14.5px;
+        line-height: 1.4;
+    }
+    label.task:active {
+        background: #262626;
+    }
+    input[type="checkbox"] {
+        width: 20px;
+        height: 20px;
+        flex-shrink: 0;
+        margin-top: 1px;
+        accent-color: #64c8ff;
+    }
+    .task.checked span {
+        text-decoration: line-through;
+        color: #777;
+    }
+    .daily-habit {
+        background: #24152a;
+        border-left: 4px solid #ff64c8;
+        border-radius: 14px;
+        padding: 16px;
+        margin-bottom: 20px;
+    }
+    .daily-habit h2 {
+        color: #ff64c8;
+        font-size: 17px;
+        margin: 0 0 10px;
+    }
+    .reset-btn {
+        display: block;
+        width: 100%;
+        background: #333;
+        color: #ccc;
+        border: none;
+        padding: 12px;
+        border-radius: 10px;
+        font-size: 14px;
+        margin-top: 10px;
+    }
+    footer {
+        text-align: center;
+        color: #555;
+        font-size: 12px;
+        margin-top: 30px;
+    }
+</style>
+</head>
+<body>
+
+<h1>🚀 Merit's Learning Plan</h1>
+<div class="subtitle">Coding → Web Development (3-Month Fast Track)</div>
+
+<div class="progress-wrap">
+    <div class="progress-text" id="progressText">0 of 0 tasks complete</div>
+    <div class="progress-bar-bg">
+        <div class="progress-bar-fill" id="progressFill"></div>
+    </div>
+</div>
+
+<div class="daily-habit">
+    <h2>🔁 Daily Habit (every single day)</h2>
+    <label class="task"><input type="checkbox" data-key="d1"><span>Code for at least 30–60 minutes</span></label>
+    <label class="task"><input type="checkbox" data-key="d2"><span>Practice calligraphy or crochet for 15–20 min (relax break)</span></label>
+</div>
+
+<div class="month-block">
+    <div class="month-title">Month 1: HTML, CSS & JavaScript Foundations</div>
+    <div class="month-sub">Goal: comfortable building real interactive pages</div>
+
+    <div class="week">
+        <div class="week-title">Week 1–2: HTML & CSS Deep Dive</div>
+        <label class="task"><input type="checkbox" data-key="w1t1"><span>Learn Flexbox (freeCodeCamp CSS Flexbox module)</span></label>
+        <label class="task"><input type="checkbox" data-key="w1t2"><span>Learn CSS Grid basics</span></label>
+        <label class="task"><input type="checkbox" data-key="w1t3"><span>Build a responsive layout (works on phone + desktop size)</span></label>
+        <label class="task"><input type="checkbox" data-key="w1t4"><span>Learn HTML forms (inputs, buttons, labels)</span></label>
+    </div>
+
+    <div class="week">
+        <div class="week-title">Week 3–4: JavaScript Fundamentals</div>
+        <label class="task"><input type="checkbox" data-key="w3t1"><span>Variables, data types, operators</span></label>
+        <label class="task"><input type="checkbox" data-key="w3t2"><span>Functions & conditionals (if/else)</span></label>
+        <label class="task"><input type="checkbox" data-key="w3t3"><span>Loops & arrays</span></label>
+        <label class="task"><input type="checkbox" data-key="w3t4"><span>DOM manipulation (you've done this in your games!)</span></label>
+        <label class="task"><input type="checkbox" data-key="w3t5"><span>Project: Build a to-do list app</span></label>
+        <label class="task"><input type="checkbox" data-key="w3t6"><span>Project: Build a calculator</span></label>
+    </div>
+</div>
+
+<div class="month-block">
+    <div class="month-title">Month 2: Real Web Dev Skills</div>
+    <div class="month-sub">Goal: build dynamic, data-driven sites</div>
+
+    <div class="week">
+        <div class="week-title">Week 5–6: APIs & Modern JS</div>
+        <label class="task"><input type="checkbox" data-key="w5t1"><span>Learn fetch() and how APIs work</span></label>
+        <label class="task"><input type="checkbox" data-key="w5t2"><span>Learn async/await</span></label>
+        <label class="task"><input type="checkbox" data-key="w5t3"><span>Learn localStorage (saving data on a site)</span></label>
+        <label class="task"><input type="checkbox" data-key="w5t4"><span>Project: Weather app using a free API</span></label>
+    </div>
+
+    <div class="week">
+        <div class="week-title">Week 7–8: React Basics</div>
+        <label class="task"><input type="checkbox" data-key="w7t1"><span>Understand components & props</span></label>
+        <label class="task"><input type="checkbox" data-key="w7t2"><span>Understand state & useState</span></label>
+        <label class="task"><input type="checkbox" data-key="w7t3"><span>Project: Rebuild your portfolio in React</span></label>
+    </div>
+</div>
+
+<div class="month-block">
+    <div class="month-title">Month 3: Backend + Job-Ready</div>
+    <div class="month-sub">Goal: full-stack basics + a real portfolio</div>
+
+    <div class="week">
+        <div class="week-title">Week 9–10: Backend Basics</div>
+        <label class="task"><input type="checkbox" data-key="w9t1"><span>Learn Python or Node.js basics</span></label>
+        <label class="task"><input type="checkbox" data-key="w9t2"><span>Learn what a database is (basic concepts)</span></label>
+        <label class="task"><input type="checkbox" data-key="w9t3"><span>Project: Simple backend that stores form submissions</span></label>
+    </div>
+
+    <div class="week">
+        <div class="week-title">Week 11: Git & GitHub Properly</div>
+        <label class="task"><input type="checkbox" data-key="w11t1"><span>Learn git commands (not just manual uploads)</span></label>
+        <label class="task"><input type="checkbox" data-key="w11t2"><span>Learn branches & commits properly</span></label>
+    </div>
+
+    <div class="week">
+        <div class="week-title">Week 12: Launch</div>
+        <label class="task"><input type="checkbox" data-key="w12t1"><span>Polish portfolio with 3–4 real projects</span></label>
+        <label class="task"><input type="checkbox" data-key="w12t2"><span>Create a Fiverr/Upwork profile</span></label>
+        <label class="task"><input type="checkbox" data-key="w12t3"><span>Apply to first freelance gig or job</span></label>
+    </div>
+</div>
+
+<button class="reset-btn" onclick="resetProgress()">Reset all progress</button>
+
+<footer>Built for Merit • Keep going 💪</footer>
+
+<script>
+const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+const progressText = document.getElementById('progressText');
+const progressFill = document.getElementById('progressFill');
+
+function loadProgress() {
+    checkboxes.forEach(cb => {
+        const saved = localStorage.getItem(cb.dataset.key);
+        if (saved === "true") {
+            cb.checked = true;
+            cb.closest('.task').classList.add('checked');
+        }
+    });
+    updateProgress();
+}
+
+function updateProgress() {
+    const total = checkboxes.length;
+    let done = 0;
+    checkboxes.forEach(cb => { if (cb.checked) done++; });
+    progressText.textContent = done + " of " + total + " tasks complete";
+    progressFill.style.width = (done / total * 100) + "%";
+}
+
+checkboxes.forEach(cb => {
+    cb.addEventListener('change', () => {
+        localStorage.setItem(cb.dataset.key, cb.checked);
+        cb.closest('.task').classList.toggle('checked', cb.checked);
+        updateProgress();
+    });
+});
+
+function resetProgress() {
+    if (confirm("Reset all your checked progress?")) {
+        checkboxes.forEach(cb => {
+            cb.checked = false;
+            cb.closest('.task').classList.remove('checked');
+            localStorage.removeItem(cb.dataset.key);
+        });
+        updateProgress();
+    }
+}
+
+loadProgress();
+</script>
+
+</body>
+</html>
